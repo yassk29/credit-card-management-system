@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CcManApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CcManApplication.class, args);
+        SpringApplication.run(CcManApplication.class, args);
 	}
 
 }
