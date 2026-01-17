@@ -1,5 +1,6 @@
 package com.yash.ccman.entity;
-
+// TO Start mysql: sudo systemctl start mysql
+// To login into mysql: sudo mysql -u root -p
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -49,4 +49,27 @@ public class CreditCardService {
         // 5. Save
         return creditCardRepository.save(card);
     }
+
+    // Get card by UserId
+    public CreditCard getCardByUserId(Long userId) {
+        return creditCardRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Credit card not found for user"));
+    }
+
+    // To Block/Unblock card
+    public CreditCard blockCard(Long cardId) {
+        CreditCard card =  creditCardRepository.findById(cardId)
+                .orElseThrow(() -> new RuntimeException("Card not found"));
+
+        card.setStatus(CardStatus.BLOCKED);
+        return creditCardRepository.save(card);
+    }
+    public CreditCard unblockCard(Long cardId) {
+        CreditCard card =  creditCardRepository.findById(cardId)
+                .orElseThrow(() -> new RuntimeException("Card not found"));
+
+        card.setStatus(CardStatus.ACTIVE);
+        return creditCardRepository.save(card);
+    }
+
 }

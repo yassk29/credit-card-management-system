@@ -19,4 +19,21 @@ public class CreditCardController {
     ) {
         return creditCardService.issueCard(userId, creditLimit);
     }
+
+    // Get card by userId
+    @GetMapping("/user/{userId}")
+    public CreditCard getCardByUser(@PathVariable Long userId) {
+        return creditCardService.getCardByUserId(userId);
+    }
+
+    // To Block/Unblock card
+    @PutMapping("/{cardId}/block")
+    public CreditCard blockCard(@PathVariable Long cardId) {
+        return creditCardService.blockCard(cardId);
+    }
+    @PutMapping("/{cardId}/unblock")
+    public CreditCard unblockCard(@PathVariable Long cardId) {
+        return creditCardService.unblockCard(cardId);
+    }
+
 }
