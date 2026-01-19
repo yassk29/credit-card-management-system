@@ -2,6 +2,8 @@ package com.yash.ccman.service;
 
 
 import com.yash.ccman.entity.*;
+import com.yash.ccman.exception.BadRequestException;
+import com.yash.ccman.exception.NotFoundException;
 import com.yash.ccman.repository.CreditCardRepository;
 import com.yash.ccman.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +19,14 @@ public class TransactionService {
 
     public Transaction spend(Long cardId, Double amount) {
         CreditCard card = creditCardRepository.findById(cardId)
-                .orElseThrow(() -> new RuntimeException("Card not found"));
+                .orElseThrow(() -> new NotFoundException("Card not found"));
 
         if(card.getStatus() == CardStatus.BLOCKED) {
-            throw new RuntimeException("Card is Blocked");
+            throw new BadRequestException("Card is Blocked");
         }
 
         if(amount > card.getAvailableLimit()) {
-            throw new RuntimeException("Insufficient available limit");
+            throw new BadRequestException("Insufficient available limit");
         }
 
         card.setAvailableLimit(card.getAvailableLimit() - amount);
@@ -40,7 +42,7 @@ public class TransactionService {
     }
     public Transaction refund(Long cardId, Double amount) {
         CreditCard card = creditCardRepository.findById(cardId)
-                .orElseThrow(() -> new RuntimeException("Card not found"));
+                .orElseThrow(() -> new NotFoundException("Card not found"));
 
         double newLimit = card.getAvailableLimit() + amount;
 

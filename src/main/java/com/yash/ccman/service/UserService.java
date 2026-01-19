@@ -1,6 +1,7 @@
 package com.yash.ccman.service;
 
 import com.yash.ccman.entity.User;
+import com.yash.ccman.exception.NotFoundException;
 import com.yash.ccman.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
     }
 }
 
